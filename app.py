@@ -53,7 +53,7 @@ def home():
     uid = uuid.uuid1()
     users[uid] = User()
 
-    sample.subscribe(user)
+    sample.subscribe(users[uid])
     return redirect("/{0}/".format(uid))
 
 @app.route("/<uid>/")
