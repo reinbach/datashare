@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>DataShare</title>
+    <script type="text/javascript" charset="utf-8">
+    </script>
+</head>
+<body>
+    {{ test }}
+    <h3>DataShare</h3>
+    <table>
+        <tbody>
+            {% for firstname, lastname, d1, d2, d3 in data %}
+                <tr>
+                    <td>{{ firstname }}</td>
+                    <td>{{ lastname }}</td>
+                    <td>{{ d1 }}</td>
+                    <td>{{ d2 }}</td>
+                    <td>{{ d3 }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td><input type="text" name="first" placeholder="first name" title="First Name" /></td>
+                <td><input type="text" name="last" placeholder="last name" title="Last Name" /></td>
+                <td><input type="text" name="d1" pattern="\d{1,}" title="Data 1" /></td>
+                <td><input type="text" name="d1" pattern="\d{1,}" title="Data 2" /></td>
+                <td><input type="text" name="d1" pattern="\d{1,}" title="Data 3" /></td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+</html>
