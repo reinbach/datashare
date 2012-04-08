@@ -28,9 +28,20 @@ class DataSample(object):
         ]
 
     def add(self, data):
+        new_data = {
+            'first': data.get('first', ''),
+            'last': data.get('last', ''),
+            'd1': data.get('d1', 0),
+            'd2': data.get('d2', 0),
+            'd3': data.get('d3', 0),
+        }
+        self.data.append(new_data)
         for user in self.users:
-            user.queue.put_nowait(data)
-        self.data.append(data)
+            user.queue.put_nowait(json.dumps({
+                'action': 'add',
+                'row': len(self.data),
+                'data': new_data
+            }))
 
     def update(self, key, field, value):
         row = self.data[int(key)]
@@ -83,6 +94,12 @@ def data_update(uid):
             request.form['field'],
             request.form['data']
         )
+    return ''
+
+@app.route("/add/<uid>/", methods=["POST"])
+def data_add(uid):
+    if uid in users:
+        sample.add(request.form)
     return ''
 
 @app.route("/poll/<uid>/", methods=["POST"])

@@ -14,6 +14,16 @@
 	        });
 	    });
 
+            $(".add td input[type='submit']").bind("click", function(e) {
+               e.preventDefault();
+               $.ajax({
+                    type: 'POST',
+                    url: '/add/{{uid}}/',
+                    data: $(".add input").serialize(),
+                    dataType: 'json',
+                });
+            });
+
 	    function dataUpdate(cell) {
 	        var data_val = cell.val();
 	        var data_col = cell.attr("name");
@@ -41,6 +51,14 @@
                           $(".data td input[name='" + data.field + "'][row='" + data.row + "']").val(data.data);
 	              }
 	              if (data.action == "add") {
+                          $("table tbody").append("<tr class='data'> \
+                    <td><input type='text' name='first' row='" + data.row + "' value='" + data.data.first + "' title='First Name' /></td> \
+                    <td><input type='text' name='last' row='" + data.row + "' value='" + data.data.last + "' title='Last Name' /></td> \
+		    <td><input type='text' name='d1' row='" + data.row + "' value='" + data.data.d1 + "' /></td> \
+		    <td><input type='text' name='d2' row='" + data.row + "' value='" + data.data.d2 + "' /></td> \
+		    <td><input type='text' name='d3' row='" + data.row + "' value='" + data.data.d3 + "' /></td> \
+		    <td>&nbsp;</td> \
+                </tr>");
 	              }
                   }
                   return longPoll();
@@ -70,16 +88,17 @@
 		    <td>&nbsp;</td>
                 </tr>
             {% endfor %}
+        </tbody>
+        <tfoot>
             <tr class="add">
                 <td><input type="text" name="first" required placeholder="first name" title="First Name" /></td>
                 <td><input type="text" name="last" required placeholder="last name" title="Last Name" /></td>
                 <td><input type="text" name="d1" required pattern="\d{1,}" title="Data 1" /></td>
-                <td><input type="text" name="d1" required pattern="\d{1,}" title="Data 2" /></td>
-                <td><input type="text" name="d1" required pattern="\d{1,}" title="Data 3" /></td>
-		<td><input type="submit" value="Add" /></td>
+                <td><input type="text" name="d2" required pattern="\d{1,}" title="Data 2" /></td>
+                <td><input type="text" name="d3" required pattern="\d{1,}" title="Data 3" /></td>
+	        <td><input type="submit" value="Add" /></td>
             </tr>
-
-        </tbody>
+        </tfoot>
     </table>
     </form>
 </body>
